@@ -1,0 +1,24 @@
+server:
+  port: 0
+
+application:
+  name: service
+  version: 2
+
+spring:
+  application:
+    name: ${application.name}-v${application.version}
+  cloud:
+    config:
+      uri: http://localhost:8081
+      label: configuration
+
+eureka:
+  client:
+    fetchRegistry: false
+    registerWithEureka: true
+    serviceUrl:
+      defaultZone: http://localhost:8085/eureka/
+  instance:
+    preferIpAddress: true
+    instanceId: ${spring.application.name}:${spring.application.instance_id:${random.value}}
